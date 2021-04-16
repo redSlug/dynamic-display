@@ -1,0 +1,23 @@
+# IDE
+.idea
+
+# Modified files
+*#
+*~
+
+# OS X
+.DS_Store
+
+# Secrets
+.env
+
+# Generated
+generated/*
+static/display*
+static/weather
+
+# Python
+*.pyc
+*__pycache__/
+.pytest_cache
+venv

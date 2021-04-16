@@ -1,0 +1,45 @@
+name: Checks
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  tests:
+    name: Tests
+    runs-on: python:3.8-slim-buster
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Install requirements
+        run: pip install -r requirements.txt
+
+      - name: Run pytests
+        run: python -m pytest tests
+
+  black:
+    name: Black formatter
+    runs-on: python:3.8-slim-buster
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Install requirements
+        run: pip install -r requirements.txt
+
+      - name: Run black formatter
+        run: black .
+
+  dockerBuild:
+    name: Test build
+    runs-on: python:3.8-slim-buster
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Install requirements
+        run: pip install -r requirements.txt
+
+      - name: Run build
+        run: python app.py

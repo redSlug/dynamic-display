@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: base
+    command: bash -c 'python3 app.py'
+    ports:
+      - "5000:5000"
+    working_dir: /app
+    volumes:
+      - .:/app:cached
+      - $HOME/.bash_history:/root/.bash_history
