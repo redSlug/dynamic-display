@@ -11,4 +11,4 @@ COPY . .
 
 FROM base as build
 
-CMD python app.py
+CMD ./gunicorn.sh

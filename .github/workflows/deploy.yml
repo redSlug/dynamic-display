@@ -36,6 +36,4 @@ jobs:
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPOSITORY }}:${{ secrets.DOCKERHUB_TAG }}
             sudo docker stop app
             sudo docker rm app
-            sudo docker run -d --restart on-failure --name=app
-            -p 5000:5000 ${{secrets.DOCKERHUB_USERNAME}}/${{secrets
-            .DOCKERHUB_REPOSITORY}}:${{secrets.DOCKERHUB_TAG}}
+            sudo docker run -d --restart on-failure --name=app -p 5000:5000 ${{secrets.DOCKERHUB_USERNAME}}/${{secrets.DOCKERHUB_REPOSITORY}}:${{secrets.DOCKERHUB_TAG}}

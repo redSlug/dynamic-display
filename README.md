@@ -10,10 +10,42 @@ docker-compose build
 docker-compose up
 ```
 
-Useful commands
+## Setup automatic deploys
+- Register a domain name (optional)
+- Get a linux [droplet](https://cloud.digitalocean.com/droplets) or any server you can ssh into
+- Install [docker](https://docs.docker.com/engine/install/) on the server
+- Use free version of [cloudflare](https://www.cloudflare.com/) for DDOS protection; update your
+  nameservers in your domain name provider to be cloudflare
+ - Install [nginx](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/) on the
+  server, config using [nginx.config](https://docs.nginx.com/nginx/admin-guide/basic-functionality/managing-configuration-files/) and [activate your virtualhost](https://ubuntu.com/tutorials
+  /install-and-configure-nginx#5-activating-virtual-host-and-testing-results)
+- Use [Build and push Docker images Github Action](https://github.com/marketplace/actions/build-and-push-docker-images?version=v2.0.1) and [appleboy/ssh-action](https://github.com/appleboy/ssh-action) for automatic deploys
+- Make sure actions are allowed in github settings
+- Setup secrets in your github repo for .github/deploys.yml
+- For your first deploy, ssh into your server and run your container manually, for example 
+```bash
+docker build -t dynamic-display:home .
+docker run -d --restart on-failure --name=app -p 5000:5000 dynamic-display:home
+```
+- Upon subsequent pushes to main branch, the latest image will be pulled from dockerhub and a new container run
+
+### Setup [cron](https://crontab.guru/every-2-minutes) to update the display
+```bash
+touch /root/log
+crontab -e
+*/2 * * * * /root/dynamic-display/update_display.sh >> /root/log
+```
+
+### Setup an SSL certificate
+- get an [ssl certificate](https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-gunicorn-and-nginx-on-ubuntu-18-04]
+ - [ssl](https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uswgi-and-nginx-on-ubuntu-18-04#step-7-%E2%80%94-securing-the-application)
+ - [ssl](https://dev.to/chand1012/how-to-host-a-flask-server-with-gunicorn-and-https-942)
+ - [certbot](https://certbot.eff.org/lets-encrypt/ubuntufocal-nginx)
+
+## Useful commands
 ```bash
 # Update the banner display
-docker exec -i app ./update_display.sh
+docker exec -i app python update_display.py
 
 # Auto format
 docker exec -i app black .
@@ -29,34 +61,19 @@ docker exec -it app /bin/bash
 
 # Examine db
 sqlite3 db
+
+# After editing and nginx file
+sudo service nginx restart
 ```
 
-## Setup automatic deploys
-- Register a domain name
-- Get a linux [droplet](https://cloud.digitalocean.com/droplets) or any server you can ssh into
-- Install [nginx](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/) on the
-  server, config using nginx.config and [activate your virtualhost](https://ubuntu.com/tutorials/install-and-configure-nginx#5-activating-virtual-host-and-testing-results)
-- Install [docker](https://docs.docker.com/engine/install/) on the server
-- Use free version of [cloudflare](https://www.cloudflare.com/) for DDOS protection; update your
-  nameservers in namecheap to be
-  cloudflare
-- Use [Build and push Docker images Github Action](https://github.com/marketplace/actions/build-and-push-docker-images?version=v2.0.1) and [appleboy/ssh-action](https://github.com/appleboy/ssh-action) for automatic deploys
-- Make sure actions are allowed in github settings
-- Setup secrets in your github repo for .github/deploys.yml
-- For your first deploy, ssh into your server and run your container manually, for example 
-```bash
-docker build -t weatherreporter:home .
-docker run -d --restart on-failure --name=app -p 5000:5000 weatherreporter:home
-```
-- Upon subsequent pushes to main branch, the latest image will be pulled from dockerhub and a new container run
- 
 ## Secrets for deploy.yml 
 ```bash
 DOCKERHUB_USERNAME (used to login to dockerhub) ex. bdettmer
 DOCKERHUB_TOKEN (generated)
 DOCKERHUB_TAG - (trading off version history to have multiple images in one for free tier) ex. home
-DOCKERHUB_REPOSITORY - (without username) ex. braddettmer.dev
-SERVER_HOST - (IP address of server) ex. 206.189.228.255
+DOCKER_CONTAINER_NAME - (find this by running `docker-compose ps` when container is up) ex. app
+DOCKERHUB_REPOSITORY - (without username) ex. dynamic-display
+SERVER_HOST - (IP address of server) ex. 159.89.40.171
 SERVER_USERNAME - (user to login to host via ssh) ex. root
 SERVER_KEY - (private ssh key generated on server)
 SERVER_PORT - (port used to ssh) ex. 22
@@ -69,3 +86,13 @@ python3 -m virtualenv venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
+
+If you encounter:
+```bash
+ ssh: handshake failed: ssh: unable to authenticate, attempted methods [none publickey], no supported methods remain
+```
+[It could be any number of things](https://github.com/appleboy/ssh-action/issues/80). Make sure you add the public key from your dev machine onto
+ the
+ server you are deploying to, and then pass your private key from your dev machine into Github
+  secrets for your repo
+

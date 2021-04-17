@@ -12,7 +12,7 @@
 .env
 
 # Generated
-generated/*
+generated/*.ppm
 static/display*
 static/weather
 

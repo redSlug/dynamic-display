@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
       target: base
-    command: bash -c 'python3 app.py'
+    command: ./gunicorn.sh
     ports:
       - "5000:5000"
     working_dir: /app
