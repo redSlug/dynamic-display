@@ -12,7 +12,6 @@ def test_banner_maker():
     )
     BannerMaker(banner_id=1).replace_banner(
         weather=weather_data,
-        calendar_text="Glaciology Seminar 12:00 ",
-        message_text=" Let's hack! You can submit a PR dynamicdisplay.recurse.com ",
-        train_text="",
+        calendar="Glaciology Seminar 12:00 ",
+        message=" Let's hack! You can submit a PR dynamicdisplay.recurse.com ",
     )
