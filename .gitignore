@@ -12,9 +12,9 @@
 .env
 
 # Generated
-generated/*.ppm
+generated/
 static/display*
-static/weather
+static/weather*
 
 # Python
 *.pyc
