@@ -1,2 +1,5 @@
+from datetime import datetime
+
+
 def special_logger(message):
-    print(message)
+    print(f"{datetime.now().isoformat()}: {message}")
