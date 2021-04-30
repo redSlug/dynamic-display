@@ -11,23 +11,32 @@ docker-compose up
 ```
 
 ## Setup automatic deploys
-- Register a domain name (optional)
+- Register a domain name
 - Get a linux [droplet](https://cloud.digitalocean.com/droplets) or any server you can ssh into
 - Install [docker](https://docs.docker.com/engine/install/) on the server
-- Use free version of [cloudflare](https://www.cloudflare.com/) for DDOS protection; update your
-  nameservers in your domain name provider to be cloudflare
- - Install [nginx](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/) on the
-  server, config using [nginx.config](https://docs.nginx.com/nginx/admin-guide/basic-functionality/managing-configuration-files/) and [activate your virtualhost](https://ubuntu.com/tutorials
-  /install-and-configure-nginx#5-activating-virtual-host-and-testing-results)
 - Use [Build and push Docker images Github Action](https://github.com/marketplace/actions/build-and-push-docker-images?version=v2.0.1) and [appleboy/ssh-action](https://github.com/appleboy/ssh-action) for automatic deploys
 - Make sure actions are allowed in github settings
-- Setup secrets in your github repo for .github/deploys.yml
+- Setup secrets in your github repo for `.github/deploys.yml`
 - For your first deploy, ssh into your server and run your container manually, for example 
 ```bash
 docker build -t dynamic-display:home .
 docker run -d --restart on-failure --name=app -p 5000:5000 dynamic-display:home
 ```
 - Upon subsequent pushes to main branch, the latest image will be pulled from dockerhub and a new container run
+
+### Create a virtualhost
+- Install [nginx](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/) on the server, config using [nginx.config](https://docs.nginx.com/nginx/admin-guide/basic-functionality/managing-configuration-files/) and [activate your virtualhost](https://ubuntu.com/tutorials/install-and-configure-nginx#5-activating-virtual-host-and-testing-results)
+
+Example:
+```buildoutcfg
+server {
+    server_name dynamicdisplay.xyz;
+
+	location / {
+		proxy_pass http://127.0.0.1:5000;
+	}
+}
+```
 
 ### Setup [cron](https://crontab.guru/every-2-minutes) to update the display
 ```bash
@@ -36,11 +45,9 @@ crontab -e
 */2 * * * * /root/dynamic-display/update_display.sh >> /root/log
 ```
 
-### Setup an SSL certificate
-- get an [ssl certificate](https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-gunicorn-and-nginx-on-ubuntu-18-04]
- - [ssl](https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uswgi-and-nginx-on-ubuntu-18-04#step-7-%E2%80%94-securing-the-application)
- - [ssl](https://dev.to/chand1012/how-to-host-a-flask-server-with-gunicorn-and-https-942)
- - [certbot](https://certbot.eff.org/lets-encrypt/ubuntufocal-nginx)
+### Setup DDOS Protection and SSL (optional)
+One option is to use free version of [cloudflare](https://www.cloudflare.com/) for DDOS
+ protection; update your nameservers in your domain name provider to be cloudflare
 
 ## Useful commands
 ```bash
