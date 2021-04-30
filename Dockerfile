@@ -11,4 +11,6 @@ COPY . .
 
 FROM base as build
 
+RUN ./update_version.sh
+
 CMD ./gunicorn.sh
