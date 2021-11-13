@@ -11,5 +11,6 @@ services:
       - "5000:5000"
     working_dir: /app
     volumes:
+      - ../database:/app/database
       - .:/app:cached
       - $HOME/.bash_history:/root/.bash_history
