@@ -54,9 +54,9 @@ def create_message():
 
     db.session.add(msg)
     db.session.commit()
-    db.session.close()
+    db.session.flush()
     return (
-        jsonify(dict(data=msg.id, created=msg.created, id=msg.id, author=msg.author)),
+        jsonify(dict(message=message, author=author)),
         200,
     )
 

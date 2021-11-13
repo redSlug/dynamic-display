@@ -4,10 +4,20 @@
 
 ## Local development
 
+### Docker compose
+
 Start the server by running the following and visit [http://localhost:5000](http://localhost:5000)
 ```bash
 docker-compose build
 docker-compose up
+```
+
+### Docker (there is probably a better way)
+```bash
+docker stop test
+docker rm $(docker ps --filter status=exited -q)
+docker build . -t example
+docker run --name test -p 5001:5000 -v /Users/bd/Development/dynamic-display/hostdb:/app/database example:latest
 ```
 
 ## Setup automatic deploys
@@ -29,6 +39,14 @@ docker run -d --restart on-failure --name=app -p 5000:5000 dynamic-display:home
 ```
 - Upon subsequent pushes to main branch, the latest image will be pulled from dockerhub and a new container run
 
+### Database
+Make sure to create an empty database directory on the host for docker to mount to so changes are
+ persisted
+```bash
+/home/database
+```
+You can copy the db via `scp` there or create it
+
 ### Create a virtualhost
 - Install [nginx](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/) on the server, config using [nginx.config](https://docs.nginx.com/nginx/admin-guide/basic-functionality/managing-configuration-files/) and [activate your virtualhost](https://ubuntu.com/tutorials/install-and-configure-nginx#5-activating-virtual-host-and-testing-results)
 
@@ -42,6 +60,12 @@ server {
 	}
 }
 ```
+
+#### Option: Multiple apps running on the same server (use different ports)
+```buildoutcfg
+root@ubuntu-dynamic-display:/etc/nginx/sites-enabled# ls
+dynamic-display site2
+
 
 ### Setup [cron](https://crontab.guru/every-2-minutes) to update the display
 ```bash
