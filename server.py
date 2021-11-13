@@ -10,6 +10,7 @@ load_dotenv(find_dotenv(filename="dotenv"))
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config["JSONIFY_PRETTYPRINT_REGULAR"] = True
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ["DB_URL"]
 db = SQLAlchemy(app)
 
@@ -77,4 +78,4 @@ def get_messages():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0")
+    app.run(host="0.0.0.0")
