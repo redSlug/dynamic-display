@@ -40,7 +40,8 @@ docker run -d --restart on-failure --name=app -p 5000:5000 dynamic-display:home
 - Upon subsequent pushes to main branch, the latest image will be pulled from dockerhub and a new container run
 
 ### Database
-Make sure to create an empty database directory for docker to mount to so changes are persisted
+Make sure to create an empty database directory on the host for docker to mount to so changes are
+ persisted
 ```bash
 /home/database
 ```
