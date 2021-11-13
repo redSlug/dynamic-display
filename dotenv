@@ -1,4 +1,4 @@
-DB_URL="sqlite:///db"
+DB_URL="sqlite:///database/db"
 APP_PORT=8000
 MTA_API_KEY=023936cb238b9cb778d546551b2d6536
 FEED_IDS=1
