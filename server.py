@@ -6,12 +6,13 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import DateTime, Column, String, Integer
 from sqlalchemy.sql import func
 
-load_dotenv(find_dotenv(filename="dotenv"))
+from service.util import DB_URL
+
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["JSONIFY_PRETTYPRINT_REGULAR"] = True
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ["DB_URL"]
+app.config["SQLALCHEMY_DATABASE_URI"] = DB_URL
 db = SQLAlchemy(app)
 
 

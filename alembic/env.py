@@ -5,6 +5,8 @@ from logging.config import fileConfig
 import os
 import sys
 
+from service.util import DB_URL
+
 PACKAGE_PARENT = ".."
 SCRIPT_DIR = os.path.dirname(
     os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__)))
@@ -19,7 +21,7 @@ target_metadata = Base.metadata
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
-sqlalchemy_url = os.environ.get("DB_URL")
+sqlalchemy_url = DB_URL
 config.set_main_option("sqlalchemy.url", sqlalchemy_url)
 
 # Interpret the config file for Python logging.

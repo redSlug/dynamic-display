@@ -10,6 +10,7 @@
 
 # Secrets
 .env
+hostenv/dotenv
 
 # Generated
 generated/

@@ -5,6 +5,7 @@ import datetime
 from darksky import forecast
 from pytz import timezone
 
+from service.util import DARK_SKY_API_KEY, LAT, LONG
 
 tz = timezone("US/Eastern")
 
@@ -34,9 +35,9 @@ class WeatherData:
 
 class DarkSkyWeather:
     def __init__(self, api_key=None, lat=None, long=None):
-        self.api_key = api_key or os.environ["DARK_SKY_API_KEY"]
-        self.lat = lat or os.environ["LAT"]
-        self.long = long or os.environ["LONG"]
+        self.api_key = api_key or DARK_SKY_API_KEY
+        self.lat = lat or LAT
+        self.long = long or LONG
 
     def _ask_dark_sky(self):
         return forecast(self.api_key, self.lat, self.long)
