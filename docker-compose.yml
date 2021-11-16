@@ -12,5 +12,6 @@ services:
     working_dir: /app
     volumes:
       - ../database:/app/database
+      - ../env:/app/env
       - .:/app:cached
       - $HOME/.bash_history:/root/.bash_history
