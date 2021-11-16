@@ -4,7 +4,7 @@ import os
 import requests
 import pytz
 
-from service.util import special_logger
+from service.util import special_logger, CALENDAR_TOKEN
 
 SUMMARY_LIMIT = 25
 CALENDAR_DATA_LIMIT = 120
@@ -92,12 +92,12 @@ def get_formatted_events(calendar_token):
 
 
 def get_api_calendar_text():
-    event_data = get_formatted_events(os.environ["CALENDAR_TOKEN"])
+    event_data = get_formatted_events(CALENDAR_TOKEN)
     return event_data.rstrip() + " "
 
 
 def write_calendar_data():
-    event_data = get_formatted_events(os.environ["CALENDAR_TOKEN"])
+    event_data = get_formatted_events(CALENDAR_TOKEN)
     with open(CALENDAR_DATA, "w") as f:
         f.write(event_data)
 

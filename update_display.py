@@ -29,7 +29,9 @@ if __name__ == "__main__":
     special_logger(f"message={message}")
 
     rc_banner = BannerMaker(banner_id="")
-    rc_banner.replace_banner(weather=weather or ' ', calendar=calendar or ' ', message=message)
+    rc_banner.replace_banner(
+        weather=weather or " ", calendar=calendar or " ", message=message
+    )
 
     banner = BannerMaker(banner_id="_2")
     banner.replace_banner(weather=weather)

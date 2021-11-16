@@ -2,9 +2,8 @@ import os
 from unittest.mock import patch, MagicMock
 
 import pytest
-from dotenv import load_dotenv, find_dotenv
 
-from service.util import DOTENV_PATH
+from service.util import DARK_SKY_API_KEY, LAT, LONG
 from service.weather import DarkSkyWeather
 
 
@@ -25,8 +24,4 @@ def test_is_daytime(m_now):
 
 @pytest.mark.skip(reason="hits real darksky api")
 def test_get_real_weather():
-    load_dotenv(find_dotenv(DOTENV_PATH))
-    DARK_SKY_API_KEY = os.environ["DARK_SKY_API_KEY"]
-    LAT = os.environ["LAT"]
-    LONG = os.environ["LONG"]
     DarkSkyWeather(api_key=DARK_SKY_API_KEY, lat=LAT, long=LONG)._ask_dark_sky()
