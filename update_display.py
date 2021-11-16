@@ -6,10 +6,11 @@ from service.messages import get_recent_message
 from service.util import special_logger
 from service.weather import DarkSkyWeather
 
+from service.util import DOTENV_PATH
+
 
 if __name__ == "__main__":
-    load_dotenv(find_dotenv(filename="dotenv"))
-
+    load_dotenv(find_dotenv(DOTENV_PATH))
     try:
         write_calendar_data()
         calendar = get_calendar_text()

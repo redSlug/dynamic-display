@@ -10,6 +10,7 @@ from service.calendar import (
     write_calendar_data,
     get_calendar_text,
 )
+from service.util import DOTENV_PATH
 
 
 @patch("service.calendar._get_now")
@@ -31,7 +32,7 @@ def test_write_formatted_events(m_get_raw, m_now):
         "URL:https://www.recurse.com/calendar/14888\r",
         "END:VEVENT\r",
     ]
-    load_dotenv(find_dotenv(filename="dotenv"))
+    load_dotenv(find_dotenv(DOTENV_PATH))
     result = get_formatted_events(calendar_token=os.environ["CALENDAR_TOKEN"])
     assert result == "Coffee Klatsch! 06:30"
 

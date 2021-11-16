@@ -17,7 +17,10 @@ docker-compose up
 docker stop test
 docker rm $(docker ps --filter status=exited -q)
 docker build . -t example
-docker run --name test -p 5001:5000 -v /Users/bd/Development/dynamic-display/hostdb:/app/database example:latest
+docker run --name test -p 5001:5000 \
+    -v /Users/bd/Development/dynamic-display/hostdb:/app/database \
+    -v /Users/bd/Development/dynamic-display/hostenv:/app/env \
+    example:latest
 ```
 
 ## Setup automatic deploys

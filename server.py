@@ -6,7 +6,9 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import DateTime, Column, String, Integer
 from sqlalchemy.sql import func
 
-load_dotenv(find_dotenv(filename="dotenv"))
+from service.util import DOTENV_PATH
+
+load_dotenv(find_dotenv(DOTENV_PATH))
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
