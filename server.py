@@ -24,10 +24,6 @@ class Message(db.Model):
     created = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
 
 
-
-result = Message.query.all()
-
-
 @app.route("/favicon.ico")
 def favicon():
     return send_from_directory(
