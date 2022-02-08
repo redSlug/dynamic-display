@@ -3,7 +3,7 @@ import os
 from dotenv import load_dotenv, find_dotenv
 
 
-DOTENV_PATH = "env/dotenv"
+DOTENV_PATH = "/app/hostenv/dotenv"
 
 load_dotenv(find_dotenv(DOTENV_PATH))
 DARK_SKY_API_KEY = os.getenv("DARK_SKY_API_KEY")
