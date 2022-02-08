@@ -1,6 +1,5 @@
 import os
 
-from dotenv import load_dotenv, find_dotenv
 from flask import Flask, request, jsonify, render_template, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import DateTime, Column, String, Integer
@@ -41,6 +40,7 @@ def home():
 
 @app.route("/<string:page_name>/")
 def static_page(page_name):
+    # NOTE: maybe explicitly list the files that can be used; hard code the set
     return render_template("%s.html" % page_name)
 
 

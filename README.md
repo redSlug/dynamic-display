@@ -37,7 +37,14 @@ docker run --name test -p 5001:5000 \
 - Setup secrets in your github repo for `.github/deploys.yml`
 - For your first deploy, ssh into your server and run your container manually, for example 
 ```bash
+# build the app
+# Option 1: if you image was not yet pushed to docker hub and you have repo locally
 docker build -t dynamic-display:home .
+
+# Option 2: if the image was pushed to github 
+sudo docker pull bdettmer/dynamic-display:home
+
+# run the app
 docker run -d --restart on-failure --name=app -p 5000:5000 dynamic-display:home
 ```
 - Upon subsequent pushes to main branch, the latest image will be pulled from dockerhub and a new container run
@@ -52,11 +59,19 @@ You can copy the db via `scp` there or create it
 
 ### Create a virtualhost
 - Install [nginx](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/) on the server, config using [nginx.config](https://docs.nginx.com/nginx/admin-guide/basic-functionality/managing-configuration-files/) and [activate your virtualhost](https://ubuntu.com/tutorials/install-and-configure-nginx#5-activating-virtual-host-and-testing-results)
+- Set the root in nginx so only files within a specific path can be accessed from the client
+- create a directory for static files
+
+```bash
+mkdir /home/dynamic-display_static
+```
 
 Example:
 ```buildoutcfg
 server {
     server_name dynamicdisplay.xyz;
+    
+    root /home/dynamic-display_static; 
 
 	location / {
 		proxy_pass http://127.0.0.1:5001;
@@ -144,3 +159,37 @@ If you encounter:
  the
  server you are deploying to, and then pass your private key from your dev machine into Github
   secrets for your repo
+  
+  
+## If you see this in your logs, it means there are [hackers at the door](https://ramshankar.org/blog/posts/2020/hackers-at-the-door/)
+```bash
+[2021-12-07 17:05:08,589] ERROR in app: Exception on /wp-login.php/ [GET]
+jinja2.exceptions.TemplateNotFound: system_api.php.html
+[2021-12-06 20:17:28,301] ERROR in app: Exception on /feed/ [GET]
+jinja2.exceptions.TemplateNotFound: wso1.php.html
+[2021-12-05 02:22:10,396] ERROR in app: Exception on /if.php/ [GET]
+```
+
+According to the [nginx docs](https://docs.nginx.com/nginx/admin-guide/web-server/serving-static
+-content/), so you don't unintentionally share private files.
+
+# Debugging w/ [strace](https://jvns.ca/categories/strace/)
+```bash
+# you can find the process running your code
+ps -aux | grep python
+strace -p 1778
+
+# and step through that process
+gdb -p 1778
+ls /proc/1778
+lsof -p 1772
+```
+
+### Example dotenv
+```bash
+DB_URL="sqlite:////app/database/db"
+DARK_SKY_API_KEY=q981b4x135d814cf0a39be85ab75fae2
+CALENDAR_TOKEN=46fa14913cf8bcdbd2g379ae65db93v2
+LAT=20.7801
+LONG=-64.0022
+```
