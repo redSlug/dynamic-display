@@ -38,12 +38,6 @@ def home():
     return render_template("index.html")
 
 
-@app.route("/<string:page_name>/")
-def static_page(page_name):
-    # NOTE: maybe explicitly list the files that can be used; hard code the set
-    return render_template("%s.html" % page_name)
-
-
 @app.route("/matrix/api/message", methods=["POST"])
 def create_message():
     data = request.get_json()
