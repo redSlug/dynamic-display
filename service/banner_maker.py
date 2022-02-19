@@ -82,9 +82,11 @@ class BannerMaker:
 
         banner = Image.new("RGB", size)
         banner.paste(enhanced_summary, (0, 4))
-        banner.paste(current_img, (enhanced_summary.width, 0))
 
         if weather.is_daytime:
+            # show weather icon when it's daytime
+            banner.paste(current_img, (enhanced_summary.width, 0))
+
             # NOTE: Shows rainbow when it's daytime
             colors = ["red", "orange", "yellow", "green", "blue", "purple"]
             for i, color in enumerate(colors):
