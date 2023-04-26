@@ -115,6 +115,7 @@ docker exec -i app python update_display.py
 docker exec -i app black .
 
 # Run tests
+docker run -d --restart on-failure --name=app -p 5000:5000 dynamic-display:home
 docker exec -i app python -m pytest tests
 
 # Run migrations
