@@ -1,4 +1,4 @@
-name: Python package
+name: dependencies / lint / test
 
 on: [push]
 
