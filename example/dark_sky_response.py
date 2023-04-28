@@ -1715,7 +1715,7 @@ sky_response = {
                 "severity": "advisory",
                 "time": 1617634800,
                 "expires": 1617580800,
-                "description": "There is an enhanced potential for brush fire spread.\n",
+                "description": "There is an enhanced potential for brush fire.\n",
                 "uri": "https://alerts.weather.gov/cap/wwacapget.php",
             }
         ],

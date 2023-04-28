@@ -106,6 +106,6 @@ def get_calendar_text():
         with open(CALENDAR_DATA) as f:
             line = f.readline()
             return line.rstrip() + " "  # hack to avoid div by zero creating img
-    except Exception as e:
+    except Exception:
         special_logger("unable to get calendar data")
         return " "  # hack to avoid div by zero creating img
