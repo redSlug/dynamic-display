@@ -1715,8 +1715,8 @@ sky_response = {
                 "severity": "advisory",
                 "time": 1617634800,
                 "expires": 1617580800,
-                "description": "There is an enhanced potential for brush fire spread across Connecticut into early this evening and then for the remainder of the tri-state on Monday. This is due to the recent dry conditions, relative humidity levels dropping below 30 percent, and gusty northwest winds. Gusts will approach 30 mph Monday afternoon.\n",
-                "uri": "https://alerts.weather.gov/cap/wwacapget.php?x=NY126199F67CAC.SpecialWeatherStatement.12619A02C340NY.OKXSPSOKX.48e68954532ba91ccecc6560f0e7f42b",
+                "description": "There is an enhanced potential for brush fire.\n",
+                "uri": "https://alerts.weather.gov/cap/wwacapget.php",
             }
         ],
         "flags": {

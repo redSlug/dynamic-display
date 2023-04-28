@@ -1,6 +1,5 @@
 import re
 import datetime
-import os
 import requests
 import pytz
 
@@ -105,8 +104,8 @@ def write_calendar_data():
 def get_calendar_text():
     try:
         with open(CALENDAR_DATA) as f:
-            l = f.readline()
-            return l.rstrip() + " "  # hack to avoid div by zero creating img
-    except:
+            line = f.readline()
+            return line.rstrip() + " "  # hack to avoid div by zero creating img
+    except Exception:
         special_logger("unable to get calendar data")
         return " "  # hack to avoid div by zero creating img

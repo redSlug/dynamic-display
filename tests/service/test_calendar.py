@@ -19,6 +19,7 @@ def test_write_formatted_events(m_get_raw, m_now):
     m_now.return_value = datetime.datetime(
         2021, 4, 6, 15, 00, tzinfo=pytz.timezone("US/Eastern")
     )
+
     m_get_raw.return_value = [
         "BEGIN:VEVENT\r",
         "DTSTAMP:20210406T010505Z\r",

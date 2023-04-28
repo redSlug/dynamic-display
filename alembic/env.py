@@ -1,6 +1,7 @@
 from alembic import context
 from sqlalchemy import engine_from_config, pool
 from logging.config import fileConfig
+from models.base import Base
 
 import os
 import sys
@@ -12,8 +13,7 @@ SCRIPT_DIR = os.path.dirname(
     os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__)))
 )
 sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, PACKAGE_PARENT)))
-# from models.base import Base
-from models.base import Base
+
 
 target_metadata = Base.metadata
 
