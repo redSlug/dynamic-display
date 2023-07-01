@@ -44,18 +44,40 @@ docker build -t dynamic-display:home .
 # Option 2: if the image was pushed to github 
 sudo docker pull bdettmer/dynamic-display:home
 
-# run the app
-docker run -d --restart on-failure --name=app -p 5000:5000 dynamic-display:home
+# Make sure to add the db and env vars
+mkdir -p /root/dynamicdisplay/hostenv
+touch /root/dynamicdisplay/hostenv/dotenv # fill this out with vars
+mkdir -p /root/dynamicdisplay/hostdb
+touch /root/dynamicdisplay/hostdb/db      # maybe scp from somewhere, or create
 ```
+
 - Upon subsequent pushes to main branch, the latest image will be pulled from dockerhub and a new container run
+
+### Example dotenv
+```bash
+DB_URL="sqlite:////app/database/db"
+DARK_SKY_API_KEY=<insert>
+CALENDAR_TOKEN=<insert>
+LAT=20.8801
+LONG=-65.0022
+```
 
 ### Database
 Make sure to create an empty database directory on the host for docker to mount to so changes are
  persisted
 ```bash
-/home/database
+mkdir /home/database
 ```
 You can copy the db via `scp` there or create it
+
+### Run the app
+```bash
+docker run -d --restart on-failure --name=app -p 5000:5000 \
+    -v /root/dynamicdisplay/hostdb:/app/database \
+    -v /root/dynamicdisplay/hostenv:/app/env \
+    bdettmer/dynamic-display:home
+```
+
 
 ### Create a virtualhost
 - Install [nginx](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/) on the server, config using [nginx.config](https://docs.nginx.com/nginx/admin-guide/basic-functionality/managing-configuration-files/) and [activate your virtualhost](https://ubuntu.com/tutorials/install-and-configure-nginx#5-activating-virtual-host-and-testing-results)
@@ -69,19 +91,17 @@ mkdir /home/dynamic-display_static
 Example:
 ```buildoutcfg
 server {
-    server_name dynamicdisplay.xyz;
+    server_name http://155.190.76.40/;
     
-    root /home/dynamic-display_static; 
-
 	location / {
-		proxy_pass http://127.0.0.1:5001;
+		proxy_pass http://127.0.0.1:5000/;
 	}
 }
 ```
 
-#### Option: Multiple apps running on the same server (use different ports)
+#### Option: [Multiple apps running on the same server (use different ports)](https://codingwithmanny.medium.com/create-an-nginx-reverse-proxy-with-docker-a1c0aa9078f1)
 ```buildoutcfg
-root@ubuntu-dynamic-display:/etc/nginx/sites-enabled# ls
+ls /etc/nginx/sites-enabled
 dynamic-display site2
 
 
@@ -155,9 +175,9 @@ If you encounter:
 ```bash
  ssh: handshake failed: ssh: unable to authenticate, attempted methods [none publickey], no supported methods remain
 ```
-[It could be any number of things](https://github.com/appleboy/ssh-action/issues/80). Make sure you add the public key from your dev machine onto
- the
- server you are deploying to, and then pass your private key from your dev machine into Github
+[It could be any number of things](https://github.com/appleboy/ssh-action/issues/80). 
+Make sure you add the public key from your dev machine onto
+ the server you are deploying to, and then pass your private key from your dev machine into Github
   secrets for your repo
   
   
@@ -170,8 +190,9 @@ jinja2.exceptions.TemplateNotFound: wso1.php.html
 [2021-12-05 02:22:10,396] ERROR in app: Exception on /if.php/ [GET]
 ```
 
-According to the [nginx docs](https://docs.nginx.com/nginx/admin-guide/web-server/serving-static
--content/), so you don't unintentionally share private files.
+Read the [nginx docs](https://docs.nginx.com/nginx/admin-guide/web-server/serving-static-content/) 
+and be careful what you set as your root 
+directory, so you don't unintentionally share private files.
 
 # Debugging w/ [strace](https://jvns.ca/categories/strace/)
 ```bash
@@ -183,13 +204,4 @@ strace -p 1778
 gdb -p 1778
 ls /proc/1778
 lsof -p 1772
-```
-
-### Example dotenv
-```bash
-DB_URL="sqlite:////app/database/db"
-DARK_SKY_API_KEY=q981b4x135d814cf0a39be85ab75fae2
-CALENDAR_TOKEN=46fa14913cf8bcdbd2g379ae65db93v2
-LAT=20.7801
-LONG=-64.0022
 ```
