@@ -27,7 +27,7 @@ if __name__ == "__main__":
             summary="dark sky broke, sorry",
             temp="110.9",
             precip="0.0",
-            is_daytime=True, # TODO use time to guess
+            is_daytime=True,  # TODO use time to guess
         )
 
     message = get_recent_message()
@@ -35,6 +35,4 @@ if __name__ == "__main__":
     special_logger(f"message={message}")
 
     rc_banner = BannerMaker(banner_id="")
-    rc_banner.replace_banner(
-        weather=weather, calendar=calendar or " ", message=message
-    )
+    rc_banner.replace_banner(weather=weather, calendar=calendar or " ", message=message)
