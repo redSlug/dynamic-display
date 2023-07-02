@@ -37,6 +37,10 @@ def favicon():
 def home():
     return render_template("index.html")
 
+@app.route("/hello")
+def hello():
+    return "hello"
+
 
 @app.route("/matrix/api/message", methods=["POST"])
 def create_message():
