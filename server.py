@@ -40,36 +40,42 @@ def home():
 
 @app.route("/matrix/api/message", methods=["POST"])
 def create_message():
-    data = request.get_json()
-    if "message" not in data:
-        return jsonify({"error": "bad payload"}), 400
-    message = data.get("message")
-    author = data.get("author")
+    try:
+        data = request.get_json()
+        if "message" not in data:
+            return jsonify({"error": "bad payload"}), 400
+        message = data.get("message")
+        author = data.get("author")
 
-    msg = Message(message=message, author=author)
+        msg = Message(message=message, author=author)
 
-    db.session.add(msg)
-    db.session.commit()
-    db.session.flush()
-    return (
-        jsonify(dict(message=message, author=author)),
-        200,
-    )
+        db.session.add(msg)
+        db.session.commit()
+        db.session.flush()
+        return (
+            jsonify(dict(message=message, author=author)),
+            200,
+        )
+    except Exception as e:
+        return jsonify(dict(exception=e)), 400
 
 
 @app.route("/matrix/api/message", methods=["GET"])
 def get_messages():
-    messages = Message.query.all()
-    messages = [
-        dict(
-            id=str(m.id),
-            created=m.created.strftime("%Y-%m-%d %H:%M:%S"),
-            author=m.author,
-            message=str(m.message),
-        )
-        for m in messages
-    ]
-    return jsonify(dict(messages=messages)), 200
+    try:
+        messages = Message.query.all()
+        messages = [
+            dict(
+                id=str(m.id),
+                created=m.created.strftime("%Y-%m-%d %H:%M:%S"),
+                author=m.author,
+                message=str(m.message),
+            )
+            for m in messages
+        ]
+        return jsonify(dict(messages=messages)), 200
+    except Exception as e:
+        return jsonify(dict(exception=e)), 400
 
 
 if __name__ == "__main__":
