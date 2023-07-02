@@ -30,7 +30,11 @@ if __name__ == "__main__":
             is_daytime=True, # TODO use time to guess
         )
 
-    message = get_recent_message()
+    try:
+        message = get_recent_message()
+    except Exception as e:
+        special_logger(f"Could not get message exception={e}")
+        message = "hi"
 
     special_logger(f"message={message}")
 
