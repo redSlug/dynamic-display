@@ -4,12 +4,23 @@
 
 ## Local development
 
+### Formatting & Testing
+```
+# Auto format
+docker exec -i app black .
+
+# Run tests
+docker exec -i app python -m pytest tests
+```
+
 ### Docker compose
 
 Start the server by running the following and visit [http://localhost:5002](http://localhost:5002)
 ```bash
 docker-compose build
 docker-compose up
+docker stop app
+docker rm $(docker ps --filter status=exited -q)
 ```
 
 ### Docker (there is probably a better way)
@@ -93,9 +104,9 @@ Example:
 server {
     server_name http://155.190.76.40/;
     
-	location / {
-		proxy_pass http://127.0.0.1:5000/;
-	}
+    location / {
+        proxy_pass http://127.0.0.1:5000/;
+    }
 }
 ```
 
