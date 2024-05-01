@@ -6,7 +6,7 @@
 
 ### Docker compose
 
-Start the server by running the following and visit [http://localhost:5000](http://localhost:5000)
+Start the server by running the following and visit [http://localhost:5002](http://localhost:5002)
 ```bash
 docker-compose build
 docker-compose up
