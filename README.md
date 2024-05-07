@@ -7,14 +7,6 @@
 
 ## Local development
 
-### Formatting & Testing
-```
-# Auto format
-docker exec -i app black .
-
-# Run tests
-docker exec -i app python -m pytest tests
-```
 
 ### Docker compose
 
@@ -35,6 +27,15 @@ docker run --name test -p 5001:5000 \
     -v /Users/bd/Development/dynamic-display/hostdb:/app/database \
     -v /Users/bd/Development/dynamic-display/hostenv:/app/env \
     example:latest
+```
+
+### Formatting & Testing
+```
+# Auto format
+docker exec -i app black .
+
+# Run tests
+docker exec -i app python -m pytest tests
 ```
 
 ## Setup automatic deploys
