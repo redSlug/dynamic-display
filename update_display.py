@@ -24,7 +24,7 @@ if __name__ == "__main__":
         special_logger(f"Could not get weather data exception={e}")
         weather = WeatherData(
             currently_icon="clear_day",
-            summary="dark sky broke, sorry",
+            summary="hi",
             temp="110.9",
             precip="0.0",
             is_daytime=True,  # TODO use time to guess
