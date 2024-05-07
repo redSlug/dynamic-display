@@ -10,13 +10,14 @@
 
 ### Docker compose
 
-Start the server by running the following and visit [http://localhost:5002](http://localhost:5002)
 ```bash
-docker-compose build
-docker-compose up
+docker compose build
+docker compose up
 docker stop app
 docker rm $(docker ps --filter status=exited -q)
 ```
+Start the server by running the following and visit [http://localhost:5002](http://localhost:5002)
+
 
 ### Docker (there is probably a better way)
 ```bash
