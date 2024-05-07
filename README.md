@@ -2,6 +2,9 @@
 
 [Generates image to be rendered on a 32x16 RGB LED Grid](https://medium.com/@bdettmer/displaying-weather-on-a-32x16-led-matrix-ce9281dc67a9)
 
+<img width="506" alt="image" src="https://github.com/redSlug/dynamic-display/assets/11279144/dfbaf783-fda9-4a8b-98dc-b783ef5c081a">
+
+
 ## Local development
 
 ### Formatting & Testing
