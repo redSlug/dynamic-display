@@ -12,7 +12,7 @@ app = Flask(__name__)
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["JSONIFY_PRETTYPRINT_REGULAR"] = True
 app.config["SQLALCHEMY_DATABASE_URI"] = DB_URL
-app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 30
+app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 30
 db = SQLAlchemy(app)
 
 
