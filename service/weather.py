@@ -45,9 +45,10 @@ def get_weather(govt_endpoint):
         currently_icon = "partly_cloudy_day" if is_daytime else "partly_cloudy_night"
 
     return WeatherData(
-        currently_icon=currently_icon,
-        summary=period["shortForecast"],
+        currently_icon="clear_day",
+        summary="debug",
+        # summary=period["shortForecast"],
         temp=f"{period['temperature']}F",
-        precip=period.get("shortForecast", 0),
+        precip=period["probabilityOfPrecipitation"].get("value", 0),
         is_daytime=is_daytime,
     )
