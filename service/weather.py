@@ -29,6 +29,21 @@ def get_weather(govt_endpoint):
     r = requests.get(govt_endpoint, headers=headers)
     data = r.json()
     period = data["properties"]["periods"][0]
+    is_daytime = period.get("isDaytime", False)
+
+    # TODO handle all icons from https://api.weather.gov/icons
+    # icon field must be parsed, "icon": "https://api.weather.gov/icons/land/night/sct?size=medium"
+    currently_icon = "clear_day" if is_daytime else "clear_night"
+    icon = period["icon"]
+    if "snow" in icon:
+        currently_icon = "snow"
+    elif "rain" in icon:
+        currently_icon = "rain"
+    elif "cloud" in icon:
+        currently_icon = "cloudy"
+    elif "sct" in icon or "few" in icon or "ovc" in icon:
+        currently_icon = "partly_cloudy_day" if is_daytime else "partly_cloudy_night"
+
     return WeatherData(
         currently_icon="clear_day",
         summary="debug",
