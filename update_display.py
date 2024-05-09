@@ -4,7 +4,7 @@ from service.banner_maker import BannerMaker
 from service.calendar import write_calendar_data, get_calendar_text
 from service.messages import get_recent_message
 from service.util import special_logger
-from service.weather import DarkSkyWeather, WeatherData
+from service.weather import get_weather, WeatherData
 
 from service.util import DOTENV_PATH
 
@@ -18,16 +18,18 @@ if __name__ == "__main__":
         special_logger(f"Could not get calendar data exception={e}")
 
     try:
-        dsw = DarkSkyWeather()
-        weather = dsw.get_weather()
+        recurse_weather_endpoint = (
+            "https://api.weather.gov/gridpoints/OKX/34,34/forecast"
+        )
+        get_weather(recurse_weather_endpoint)
     except Exception as e:
         special_logger(f"Could not get weather data exception={e}")
         weather = WeatherData(
             currently_icon="clear_day",
-            summary="hi",
-            temp="110.9",
-            precip="0.0",
-            is_daytime=True,  # TODO use time to guess
+            summary="I am broken",
+            temp="112F",
+            precip="",
+            is_daytime=True,
         )
 
     message = get_recent_message()
