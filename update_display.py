@@ -21,7 +21,7 @@ if __name__ == "__main__":
         recurse_weather_endpoint = (
             "https://api.weather.gov/gridpoints/OKX/34,34/forecast"
         )
-        get_weather(recurse_weather_endpoint)
+        weather = get_weather(recurse_weather_endpoint)
     except Exception as e:
         special_logger(f"Could not get weather data exception={e}")
         weather = WeatherData(
