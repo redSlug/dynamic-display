@@ -1,9 +1,6 @@
 from dataclasses import dataclass
 import requests
 
-tz = timezone("US/Eastern")
-
-
 weather_files = dict(
     clear_day="dark_sun.ppm",
     clear_night="clear_night.ppm",

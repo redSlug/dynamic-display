@@ -12,8 +12,8 @@
 
 Start the server by running the following and visit [http://localhost:5002](http://localhost:5002)
 ```bash
-docker-compose build
-docker-compose up
+docker compose build
+docker compose up
 docker stop app
 docker rm $(docker ps --filter status=exited -q)
 ```
@@ -72,9 +72,24 @@ touch /root/dynamicdisplay/hostdb/db      # maybe scp from somewhere, or create
 ```bash
 DB_URL="sqlite:////app/database/db"
 DARK_SKY_API_KEY=<insert>
-CALENDAR_TOKEN=<insert>
-LAT=20.8801
-LONG=-65.0022
+```
+
+### Weather endpoint setup
+```bash
+# Get the 3 values from https://api.weather.gov/points/40.6912,-73.985
+
+    "properties": {
+        "@id": "https://api.weather.gov/points/40.6912,-73.985",
+        "@type": "wx:Point",
+        "cwa": "OKX",
+        "forecastOffice": "https://api.weather.gov/offices/OKX",
+        "gridId": "OKX",
+        "gridX": 34,
+        "gridY": 34,
+
+
+# Enter it into this URL
+https://api.weather.gov/gridpoints/OKX/34,34/forecast
 ```
 
 ### Database
