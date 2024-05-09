@@ -15,6 +15,4 @@ FROM base as build
 
 RUN ./update_version.sh
 
-RUN python update_display.py
-
 CMD ./gunicorn.sh
