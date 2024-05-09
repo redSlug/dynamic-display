@@ -27,10 +27,7 @@ class BannerMaker:
 
         now = datetime.date.strftime(datetime.datetime.now(tz), "%a %-I:%M%p")
 
-        summary = now + " "
-
-        summary += weather.summary
-        summary += weather.temp
+        summary = f"{now} {weather.summary} {weather.temp}"
 
         font_size_in_points = 9
         font = ImageFont.truetype(FONTS_DIR + "led.ttf", font_size_in_points)

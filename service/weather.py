@@ -30,9 +30,9 @@ def get_weather(govt_endpoint):
     data = r.json()
     period = data["properties"]["periods"][0]
     return WeatherData(
-        currently_icon="clear_day",
+        currently_icon=weather_files["clear_day"],
         summary=period["shortForecast"],
-        temp=f"{period['temperature']} F",
+        temp=f"{period['temperature']}F",
         precip=period.get("shortForecast", 0),
         is_daytime=period.get("isDaytime", False),
     )
