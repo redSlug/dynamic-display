@@ -39,6 +39,19 @@ def home():
     return render_template("index.html")
 
 
+# TODO: In the future, we could set up "persistent" as a variable
+# so that we match url_for in the template with the route here.
+# For now: We know this is correct, and we can limit it to just
+# the one path that we care about.
+@app.route("/persistent/display.jpg")
+def persistent_jpg():
+    return send_from_directory(
+        os.path.join(app.root_path, "persistent"),
+        "display.jpg",
+        mimetype="image/jpeg",
+    )
+
+
 @app.route("/matrix/api/message", methods=["POST"])
 def create_message():
     data = request.get_json()
