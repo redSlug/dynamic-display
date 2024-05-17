@@ -38,6 +38,7 @@ def favicon():
 def home():
     return render_template("index.html")
 
+
 # TODO: In the future, we could set up "persistent" as a variable
 # so that we match url_for in the template with the route here.
 # For now: We know this is correct, and we can limit it to just
@@ -49,6 +50,7 @@ def persistent_jpg():
         "display.jpg",
         mimetype="image/jpeg",
     )
+
 
 @app.route("/matrix/api/message", methods=["POST"])
 def create_message():
