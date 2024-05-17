@@ -1,4 +1,5 @@
 <html>
+
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -17,67 +18,62 @@
                 type: "POST",
                 data: dataString,
                 contentType: "application/json",
-                dataType:"text xml",
-                success: function(xml, textStatus, xhr) {
-                console.log(xhr.status);
+                dataType: "text xml",
+                success: function (xml, textStatus, xhr) {
+                    console.log(xhr.status);
                 },
-                complete: function(xhr, textStatus) {
-                alert(xhr.status);
-                console.log(xhr.status);
+                complete: function (xhr, textStatus) {
+                    alert(xhr.status);
+                    console.log(xhr.status);
                 }
             });
 
-         event.preventDefault();
+            event.preventDefault();
         }
 
     </script>
 
-    <link rel=stylesheet type=text/css
-          href="{{ url_for('static', filename='style.css') }}">
-    <link href="https://fonts.googleapis.com/css?family=Sunflower:300"
-          rel="stylesheet">
-    <link rel="shortcut icon"
-          href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Sunflower:300" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 
 </head>
+
 <body>
-<div align="center" class="top">
-    <img src="{{ url_for('static', filename='rc_logo.png') }}">
-    <h1>RC Dynamic Display</h1>
-    <h2>Make me say something
-        <form>
-            <input type="text" placeholder="Name (Optional!)"
-                   style="width:10%;" id="nameField">
-            </input>
-            <input type="text" style="width:50%;" placeholder="Message"
-                   id="messageData">
-            </input>
-            <input type="Button" value="Say it" onclick="postMessage()">
-            </input>
-        </form>
-    </h2>
-    <img src="{{ url_for('static', filename='display.jpg') }}"
-         style="width:100%;">
-</div>
-<div style="border-bottom:solid;">
+    <div align="center" class="top">
+        <img src="{{ url_for('static', filename='rc_logo.png') }}">
+        <h1>RC Dynamic Display</h1>
+        <h2>Make me say something
+            <form>
+                <input type="text" placeholder="Name (Optional!)" style="width:10%;" id="nameField">
+                </input>
+                <input type="text" style="width:50%;" placeholder="Message" id="messageData">
+                </input>
+                <input type="Button" value="Say it" onclick="postMessage()">
+                </input>
+            </form>
+        </h2>
+        <img src="{{ url_for('persistent', filename='display.jpg') }}" style="width:100%;">
+    </div>
+    <div style="border-bottom:solid;">
 
-</div>
+    </div>
 
-<h2>What is it?</h2>
-The RC dynamic display is an LED dot matrix display which shows relevant
-information for those in the space, including:
-<ul>
-    <li><a href="https://www.recurse.com/calendar">Upcoming Events</a></li>
-    <li><a href="{{ url_for('get_messages') }}">Public Messages</a></li>
-    <li>Weather <a href="https://api.weather.gov">Powered by api.weather.gov</a></li>
-</ul>
+    <h2>What is it?</h2>
+    The RC dynamic display is an LED dot matrix display which shows relevant
+    information for those in the space, including:
+    <ul>
+        <li><a href="https://www.recurse.com/calendar">Upcoming Events</a></li>
+        <li><a href="{{ url_for('get_messages') }}">Public Messages</a></li>
+        <li>Weather <a href="https://api.weather.gov">Powered by api.weather.gov</a></li>
+    </ul>
 
-<h2>Program Me!</h2>
-<a href="https://github.com/redSlug/dynamic-display">Submit a pull request</a>
+    <h2>Program Me!</h2>
+    <a href="https://github.com/redSlug/dynamic-display">Submit a pull request</a>
 
-<h2>Feedback/Content</h2>
-You can give feedback on the project via this <a
-        href="https://goo.gl/forms/qfSTRsV8FGikyNP32">Survey</a>.
+    <h2>Feedback/Content</h2>
+    You can give feedback on the project via this <a href="https://goo.gl/forms/qfSTRsV8FGikyNP32">Survey</a>.
 
 </body>
+
 </html>
