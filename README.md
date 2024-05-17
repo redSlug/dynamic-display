@@ -14,7 +14,7 @@
 docker compose build
 docker compose up
 docker stop app
-docker rm $(docker ps --filter status=exited -q)
+docker rm $(docker ps --filter "status=exited" --filter "ancestor=dynamic-display-app" -q)
 ```
 Start the server by running the following and visit [http://localhost:5002](http://localhost:5002)
 
