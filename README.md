@@ -72,7 +72,6 @@ touch /root/dynamicdisplay/hostdb/db      # maybe scp from somewhere, or create
 ### Example dotenv
 ```bash
 DB_URL="sqlite:////app/database/db"
-DARK_SKY_API_KEY=<insert>
 ```
 
 ### Weather endpoint setup
