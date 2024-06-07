@@ -14,6 +14,7 @@ FONTS_DIR = "fonts/"
 GENERATED_DIR = "generated/"
 STATIC_DIR = "static/"
 CALENDAR_DATA = "generated/calendar_data"
+PERSISTENT_DIR = "persistent/"
 
 
 class BannerMaker:
@@ -108,8 +109,13 @@ class BannerMaker:
 
         banner.save(GENERATED_DIR + led_output_file_name)
         banner.save(STATIC_DIR + led_output_file_name)
+        # Export to "static" (in container) and "persistent" (outside)
+        # -- as we try to make it persistent
         self.export_jpg(
             GENERATED_DIR + led_output_file_name, STATIC_DIR + web_output_file_name
+        )
+        self.export_jpg(
+            GENERATED_DIR + led_output_file_name, PERSISTENT_DIR + web_output_file_name
         )
 
     @staticmethod

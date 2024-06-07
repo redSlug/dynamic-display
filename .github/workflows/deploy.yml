@@ -38,4 +38,8 @@ jobs:
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPOSITORY }}:${{ secrets.DOCKERHUB_TAG }}
             sudo docker stop app
             sudo docker rm app
-            sudo docker run -d --restart on-failure --name=app -p 5001:5000 -v /root/dynamicdisplay/hostenv:/app/env -v /root/dynamicdisplay/hostdb:/app/database ${{secrets.DOCKERHUB_USERNAME}}/${{secrets.DOCKERHUB_REPOSITORY}}:${{secrets.DOCKERHUB_TAG}}
+            sudo docker run -d --restart on-failure --name=app -p 5001:5000 \
+              -v /root/dynamicdisplay/hostenv:/app/env \
+              -v /root/dynamicdisplay/hostdb:/app/database \
+              -v /root/dynamicdisplay/persistent:/app/persistent \
+              ${{secrets.DOCKERHUB_USERNAME}}/${{secrets.DOCKERHUB_REPOSITORY}}:${{secrets.DOCKERHUB_TAG}}
