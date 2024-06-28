@@ -11,6 +11,9 @@
             console.log(message.value);
             var dataString = `{"message":"${message.value}","author":"${nameData.value}"}`;
 
+            if (nameData.value.trim() === "" || message.value.trim === "") {
+                return
+            }
 
             $.ajax({
                 url: '/matrix/api/message',
