@@ -26,7 +26,6 @@
                 console.log(xhr.status);
                 },
                 complete: function(xhr, textStatus) {
-                alert(xhr.status);
                     if (xhr.status === 200) {
                         titleBar.innerText = "Message received, the board will refresh every 5 minutes"
                     } else {
