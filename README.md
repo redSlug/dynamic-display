@@ -102,7 +102,7 @@ You can copy the db via `scp` there or create it
 
 ### Run the app
 ```bash
-docker run -d --restart on-failure --name=app -p 5000:5000 \
+docker run -d --restart on-failure --name=app -p 5001:5000 \
     -v /root/dynamicdisplay/hostdb:/app/database \
     -v /root/dynamicdisplay/hostenv:/app/env \
     bdettmer/dynamic-display:home
