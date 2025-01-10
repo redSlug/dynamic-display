@@ -11,7 +11,7 @@ from service.util import DB_URL
 app = Flask(__name__)
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["JSONIFY_PRETTYPRINT_REGULAR"] = True
-app.config["SQLALCHEMY_DATABASE_URI"] = DB_URL
+app.config["SQLALCHEMY_DATABASE_URI"] = DB_URL or "sqlite:////app/database/db"
 app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 30
 db = SQLAlchemy(app)
 
