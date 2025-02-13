@@ -11,6 +11,7 @@
 ### Docker compose
 
 ```bash
+echo "DB_URL="sqlite:////app/database/db"" > .env
 docker compose build
 docker compose up
 docker stop app
