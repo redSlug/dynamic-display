@@ -5,6 +5,8 @@ import time
 import random
 
 affirming_message = [
+    "Habits are fully up to you. Feed the good ones. Starve the toxic ones. Understand you are "
+    "never too old to grow new ones. -Dawn Staley",
     "I see beauty in all things",
     "I am so grateful for the discipline and consistency I have with everything I do",
     "Those with a grateful mindset tend to see the message in the mess. And even though life may "
