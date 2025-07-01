@@ -1,7 +1,7 @@
 """Add messages table
 
 Revision ID: d936dbdd0863
-Revises: 
+Revises:
 Create Date: 2018-06-14 11:33:50.920284
 
 """
