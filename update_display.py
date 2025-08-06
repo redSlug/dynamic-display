@@ -11,6 +11,8 @@ from service.util import DOTENV_PATH
 
 if __name__ == "__main__":
     load_dotenv(find_dotenv(DOTENV_PATH))
+    
+    calendar = " "
     try:
         write_calendar_data()
         calendar = get_calendar_text()
@@ -39,4 +41,4 @@ if __name__ == "__main__":
     special_logger(f"message={message}")
 
     rc_banner = BannerMaker(banner_id="")
-    rc_banner.replace_banner(weather=weather, calendar=calendar or " ", message=message)
+    rc_banner.replace_banner(weather=weather, calendar=calendar, message=message)
