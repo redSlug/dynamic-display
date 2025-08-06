@@ -3,7 +3,7 @@ import pytest
 from service.messages import (
     get_affirming_message, 
     get_recent_user_message, 
-    affirming_message
+    affirming_message,
 )
 
 
