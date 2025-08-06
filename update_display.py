@@ -33,8 +33,11 @@ if __name__ == "__main__":
             is_daytime=True,
         )
 
+    def is_affirming_time_of_day() -> bool:
+        return not weather.is_daytime
+
     message = get_recent_message(
-        True
+        is_affirming_time_of_day()
     )  # TODO: maybe later update to weather.currently_icon == "clear_day"
 
     special_logger(f"message={message}")
