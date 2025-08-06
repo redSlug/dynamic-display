@@ -2,7 +2,6 @@ from dotenv import load_dotenv, find_dotenv
 
 from service.banner_maker import BannerMaker
 from service.calendar import write_calendar_data, get_calendar_text
-from service.messages import get_affirming_message, get_recent_user_message
 from service.util import special_logger
 from service.weather import get_weather, WeatherData
 
@@ -33,8 +32,7 @@ if __name__ == "__main__":
     def is_affirming_time_of_day() -> bool:
         return weather.is_daytime
 
-    message = "hello world" 
-    # get_recent_user_message()
+    message = "hello world"
 
     special_logger(f"message={message}")
 
