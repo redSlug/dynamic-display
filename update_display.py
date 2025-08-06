@@ -11,7 +11,6 @@ from service.util import DOTENV_PATH
 
 if __name__ == "__main__":
     load_dotenv(find_dotenv(DOTENV_PATH))
-    
     calendar = " "
     try:
         write_calendar_data()
