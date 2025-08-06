@@ -29,11 +29,12 @@ affirming_message = [
 ]
 
 
-def get_recent_message(display_affirming_message):
-    if display_affirming_message:
-        random.seed(time.time())
-        return random.choice(affirming_message)
+def get_affirming_message():
+    random.seed(time.time())
+    return random.choice(affirming_message)
 
+
+def get_recent_user_message():
     m = (
         Message.query.order_by(desc(Message.created))
         .filter(Message.message != "")
