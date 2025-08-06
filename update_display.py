@@ -2,7 +2,7 @@ from dotenv import load_dotenv, find_dotenv
 
 from service.banner_maker import BannerMaker
 from service.calendar import write_calendar_data, get_calendar_text
-from service.messages import get_recent_message
+from service.messages import get_affirming_message, get_recent_user_message
 from service.util import special_logger
 from service.weather import get_weather, WeatherData
 
@@ -18,9 +18,7 @@ if __name__ == "__main__":
         special_logger(f"Could not get calendar data exception={e}")
 
     try:
-        recurse_weather_endpoint = (
-            "https://api.weather.gov/gridpoints/OKX/34,34/forecast"
-        )
+        recurse_weather_endpoint = "https://api.weather.gov/gridpoints/OKX/34,34/forecast"
         weather = get_weather(recurse_weather_endpoint)
     except Exception as e:
         special_logger(f"Could not get weather data exception={e}")
@@ -33,11 +31,10 @@ if __name__ == "__main__":
         )
 
     def is_affirming_time_of_day() -> bool:
-        return not weather.is_daytime
+        return weather.is_daytime
 
-    message = get_recent_message(
-        is_affirming_time_of_day()
-    )  # TODO: maybe later update to weather.currently_icon == "clear_day"
+    message = "hello world" 
+    # get_recent_user_message()
 
     special_logger(f"message={message}")
 
