@@ -17,7 +17,9 @@ if __name__ == "__main__":
         special_logger(f"Could not get calendar data exception={e}")
 
     try:
-        recurse_weather_endpoint = "https://api.weather.gov/gridpoints/OKX/34,34/forecast"
+        recurse_weather_endpoint = (
+            "https://api.weather.gov/gridpoints/OKX/34,34/forecast"
+        )
         weather = get_weather(recurse_weather_endpoint)
     except Exception as e:
         special_logger(f"Could not get weather data exception={e}")
