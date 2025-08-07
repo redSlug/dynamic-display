@@ -8,35 +8,24 @@
 ## Local development
 Ignore this file that is already committed `git update-index --assume-unchanged static/weather.ppm`
 
-
 ### Docker compose
 
 ```bash
 echo "DB_URL="sqlite:////app/database/db"" > .env
 docker compose build
 docker compose up
-docker stop app
-docker rm $(docker ps --filter "status=exited" --filter "ancestor=dynamic-display-app" -q)
 ```
-Start the server by running the following and visit [http://localhost:5002](http://localhost:5002)
 
-
-### Formatting & Testing
-```
+### Useful commands
+```bash
 # Auto format
 docker exec -i app black .
 
 # Run tests
 docker exec -i app python -m pytest tests
-```
 
-## Useful commands
-```bash
 # Update the banner display
 docker exec -i app python update_display.py
-
-# Auto format
-docker exec -i app black .
 
 # Run tests
 docker exec -i app python -m pytest tests
@@ -67,9 +56,10 @@ and be careful what you set as your root
 directory, so you don't unintentionally share private files.
 
 If you see `sqlite3.OperationalError: unable to open database file` or related, make sure your 
-db file that contains the `db` agrees with the [docker-compose.yaml](docker-compose.yml) volume
+db file that contains the `db` agrees with the [docker-compose.yaml](docker-compose.yml) volume 
+mount
 
-# Debugging w/ [strace](https://jvns.ca/categories/strace/)
+## Debugging w/ [strace](https://jvns.ca/categories/strace/)
 ```bash
 # you can find the process running your code
 ps -aux | grep python
@@ -80,3 +70,9 @@ gdb -p 1778
 ls /proc/1778
 lsof -p 1772
 ```
+
+## Future enhancements
+- upgrade python version
+- start using `uv` and pin package versions
+- move to a hosted db
+- use AI to filter messages before posting
