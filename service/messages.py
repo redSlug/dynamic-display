@@ -2,6 +2,7 @@ from sqlalchemy import desc
 
 from server import Message, app
 import time
+import datetime
 import random
 
 affirming_message = [
@@ -36,10 +37,14 @@ def get_affirming_message():
 
 def get_recent_user_message():
     with app.app_context():
+
+        an_hour_ago = datetime.datetime.now() - datetime.timedelta(hours=1)
+
         m = (
             Message.query.order_by(desc(Message.created))
             .filter(Message.message != "")
+            .filter(Message.created > an_hour_ago)
             .first()
         )
-        default_message = " Let's hack! You can submit a PR dynamicdisplay.recurse.com "
-        return m.message if m else default_message
+
+        return m.message if m else get_affirming_message()
