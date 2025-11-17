@@ -1,93 +1,37 @@
+<!DOCTYPE html>
 <html>
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <meta charset="UTF-8" />
+    <title>RC Dynamic Display</title>
 
-    <script>
-        function postMessage() {
+    <!-- React and ReactDOM from CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 
-            var nameData = document.getElementById("nameField");
-            var message = document.getElementById("messageData");
-            var titleBar = document.getElementById("titleBar");
-            console.log(nameData.value);
-            console.log(message.value);
-            var dataString = `{"message":"${message.value}","author":"${nameData.value}"}`;
+    <!-- Babel Standalone for JSX transformation -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-            if (nameData.value.trim() === "" || message.value.trim === "") {
-                return
-            }
-
-            $.ajax({
-                url: '/matrix/api/message',
-                type: "POST",
-                data: dataString,
-                contentType: "application/json",
-                dataType:"text xml",
-                success: function(xml, textStatus, xhr) {
-                console.log(xhr.status);
-                },
-                complete: function(xhr, textStatus) {
-                    if (xhr.status === 200) {
-                        titleBar.innerText = "Message received, the board will refresh every 5 minutes"
-                    } else {
-                        titleBar.innerText = "Something went wrong! Ooops"
-                        console.log(xhr.status)
-                        console.error(xhr.response)
-                    }
-                }
-            });
-
-         event.preventDefault();
-        }
-
-    </script>
-
-    <link rel=stylesheet type=text/css
-          href="{{ url_for('static', filename='style.css') }}">
-    <link href="https://fonts.googleapis.com/css?family=Sunflower:300"
-          rel="stylesheet">
-    <link rel="shortcut icon"
-          href="{{ url_for('static', filename='favicon.ico') }}">
-
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Sunflower:300" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
 <body>
-<div align="center" class="top">
-    <img src="{{ url_for('static', filename='rc_logo.png') }}">
-    <h1>RC Dynamic Display</h1>
-    <h2 id="titleBar">Make me say something</h2>
+    <div id="root"></div>
 
-    <form>
-        <input type="text" placeholder="Name (Optional!)"
-                style="width:10%;" id="nameField">
-        </input>
-        <input type="text" style="width:50%;" placeholder="Message"
-                id="messageData">
-        </input>
-        <input type="Button" value="Say it" onclick="postMessage()">
-        </input>
-    </form>
+    <script>
+        // Pass Flask URLs to the React app
+        window.APP_CONFIG = {
+            persistentJpgUrl: '{{ url_for('persistent_jpg') }}',
+            rcLogoUrl: '{{ url_for('static', filename='rc_logo.png') }}',
+            getMessagesUrl: '{{ url_for('get_messages') }}'
+        };
+    </script>
 
-    <img src="{{ url_for('persistent_jpg') }}"
-         style="width:100%;">
-</div>
-<div style="border-bottom:solid;">
+    <script type="text/babel" src="{{ url_for('static', filename='App.jsx') }}"></script>
 
-</div>
-
-<h2>What is it?</h2>
-The RC dynamic display is an LED dot matrix display which shows relevant
-information for those in the space, including:
-<ul>
-    <li><a href="https://www.recurse.com/calendar">Upcoming Events</a></li>
-    <li><a href="{{ url_for('get_messages') }}">Public Messages</a></li>
-    <li>Weather <a href="https://api.weather.gov">Powered by api.weather.gov</a></li>
-</ul>
-
-<h2>Program Me!</h2>
-<a href="https://github.com/redSlug/dynamic-display">Submit a pull request</a>
-
-<h2>Feedback/Content</h2>
-You can give feedback on the project via this <a
-        href="https://goo.gl/forms/qfSTRsV8FGikyNP32">Survey</a>.
-
+    <script type="text/babel">
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
 </body>
 </html>

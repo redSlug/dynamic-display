@@ -40,7 +40,7 @@ sqlite3 db
 sudo service nginx restart
 ```
 
-Checked the published version
+Check the published version genreated during the docker build
 http://0.0.0.0:5002/persistent/version.txt
 
 ## Troubleshooting
