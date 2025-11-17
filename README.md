@@ -40,6 +40,9 @@ sqlite3 db
 sudo service nginx restart
 ```
 
+Checked the published version
+http://0.0.0.0:5002/persistent/version.txt
+
 ## Troubleshooting
 If you don't have Pycharm Professional, one way to make unresolved references go away is
 ```bash
