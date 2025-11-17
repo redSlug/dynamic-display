@@ -13,5 +13,5 @@ services:
     volumes:
       - ../database:/app/database
       - ../env:/app/env
-      - .:/app:cached
+      - .:/app:cached     # I think this is here for local dev but hides build/version.txt
       - $HOME/.bash_history:/root/.bash_history

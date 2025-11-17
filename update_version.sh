@@ -1,3 +1,3 @@
 #!/bin/sh
 
-date > static/version.txt
+date > buildinfo/version.txt

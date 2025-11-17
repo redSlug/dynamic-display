@@ -8,7 +8,7 @@ click
 Flask
 Flask-SQLAlchemy
 gunicorn
-Pillow==9.5.0
+Pillow==12.0.0
 pytest
 python-dateutil
 python-dotenv

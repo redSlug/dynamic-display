@@ -51,6 +51,13 @@ def persistent_jpg():
         mimetype="image/jpeg",
     )
 
+@app.route("/persistent/version.txt")
+def version_txt():
+    return send_from_directory(
+        os.path.join(app.root_path, "buildinfo"),
+        "version.txt",
+        mimetype="text/plain",
+    )
 
 @app.route("/matrix/api/message", methods=["POST"])
 def create_message():

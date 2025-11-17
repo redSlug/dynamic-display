@@ -32,7 +32,8 @@ class BannerMaker:
 
         font_size_in_points = 9
         font = ImageFont.truetype(FONTS_DIR + "led.ttf", font_size_in_points)
-        font_size = font.getsize(summary)
+        bbox = font.getbbox(summary)
+        font_size = (bbox[2], bbox[3])
         special_logger(
             f"summary: {summary}, font size: {font_size} calendar:"
             f" {calendar}, message: {message}"
@@ -50,7 +51,8 @@ class BannerMaker:
         current_img = Image.open(f"{IMAGES_DIR}{weather_files[currently_icon]}")
 
         if message:
-            font_size = font.getsize(message)
+            bbox = font.getbbox(message)
+            font_size = (bbox[2], bbox[3])
             message_img = Image.new("RGB", font_size)
             message_draw = ImageDraw.Draw(message_img)
             message_draw.text((0, 0), message, font=font, fill="GreenYellow")
@@ -61,7 +63,8 @@ class BannerMaker:
         else:
             message_width = 0
 
-        font_size = font.getsize(calendar)
+        bbox = font.getbbox(calendar)
+        font_size = (bbox[2], bbox[3])
         calendar_img = Image.new("RGB", font_size)
         calendar_draw = ImageDraw.Draw(calendar_img)
         calendar_draw.text((0, 0), calendar, font=font, fill="cyan")

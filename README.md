@@ -27,9 +27,6 @@ docker exec -i app python -m pytest tests
 # Update the banner display
 docker exec -i app python update_display.py
 
-# Run tests
-docker exec -i app python -m pytest tests
-
 # Run migrations
 docker exec -it app alembic upgrade head
 
