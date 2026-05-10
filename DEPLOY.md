@@ -49,11 +49,11 @@ DB_URL="sqlite:////app/database/db"
         "forecastOffice": "https://api.weather.gov/offices/OKX",
         "gridId": "OKX",
         "gridX": 34,
-        "gridY": 34,
+        "gridY": 41,
 
 
 # Update the URL in the code
-https://api.weather.gov/gridpoints/OKX/34,34/forecast
+https://api.weather.gov/gridpoints/OKX/34,41/forecast
 ```
 
 ### Database

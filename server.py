@@ -7,7 +7,6 @@ from sqlalchemy.sql import func
 
 from service.util import DB_URL
 
-
 app = Flask(__name__)
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["JSONIFY_PRETTYPRINT_REGULAR"] = True

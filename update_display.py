@@ -8,7 +8,6 @@ from service.weather import get_weather, WeatherData
 
 from service.util import DOTENV_PATH
 
-
 if __name__ == "__main__":
     load_dotenv(find_dotenv(DOTENV_PATH))
     calendar = " "
@@ -20,7 +19,7 @@ if __name__ == "__main__":
 
     try:
         recurse_weather_endpoint = (
-            "https://api.weather.gov/gridpoints/OKX/34,34/forecast"
+            "https://api.weather.gov/gridpoints/OKX/34,41/forecast"
         )
         weather = get_weather(recurse_weather_endpoint)
     except Exception as e:

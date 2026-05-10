@@ -43,6 +43,20 @@ sudo service nginx restart
 Check the published version genreated during the docker build
 http://0.0.0.0:5002/persistent/version.txt
 
+## Server setup (production)
+
+### Docker restart policy
+Container must have `unless-stopped` to survive reboots:
+```bash
+docker update --restart unless-stopped app
+```
+
+### Crontab
+```
+*/5 * * * * docker exec -i app python update_display.py
+0 4 * * * /sbin/reboot
+```
+
 ## Troubleshooting
 If you don't have Pycharm Professional, one way to make unresolved references go away is
 ```bash
