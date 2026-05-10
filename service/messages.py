@@ -27,6 +27,12 @@ affirming_message = [
     "You'll never be able to control your mood if you let it depend on other people. Decide today that you're the only one in charge of how you feel.",
     "The real difficulty is to overcome how you think about yourself. - Maya Angelou",
     "When a difficult situation comes into our life, it's important to realize that every moment we get to choose the way we want to feel--the way we want to write the narrative of our story. Pick the one that contributes most to your aliveness and growth.",
+    "At the end of the day, let there be no excuses, no explanations, no regrets. -Steve Maraboli",
+    "Education should train the child to use his brains, to make for himself a place in the world and maintain his rights even when it seems that society would shove him into the scrap-heap. -Helen Keller",
+    "The chief handicap of the blind is not blindness, but the attitude of seeing people towards them. -Helen Keller",
+    "Keep your face to the sunshine and you cannot see the shadows. -Helen Keller",
+    "The true test of a character is to face hard conditions with the determination to make them better. -Helen Keller",
+    "To keep on trying in spite of disappointment and failure is the only way to keep young and brave. Failures become victories if they make us wise-hearted. -Helen Keller",
 ]
 
 
