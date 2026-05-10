@@ -1,7 +1,7 @@
 alembic
 appdirs
 attrs
-black
+black==26.3.1
 certifi
 chardet
 click
