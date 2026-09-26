@@ -15,3 +15,18 @@ def test_banner_maker():
         calendar="Glaciology Seminar 12:00 ",
         message=" Let's hack! You can submit a PR dynamicdisplay.recurse.com ",
     )
+
+
+def test_banner_maker_low_power():
+    weather_data = WeatherData(
+        currently_icon="cloudy",
+        summary="Clear throughout the day. ",
+        temp="39-58F Now:50",
+        precip=0,
+        is_daytime=True,
+    )
+    BannerMaker(banner_id="_low_power_test", low_power=True).replace_banner(
+        weather=weather_data,
+        calendar="Glaciology Seminar 12:00 ",
+        message=" Let's hack! You can submit a PR dynamicdisplay.recurse.com ",
+    )

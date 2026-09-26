@@ -6,7 +6,11 @@
 
 
 ## Local development
-Ignore this file that is already committed `git update-index --assume-unchanged static/weather.ppm`
+Ignore these files that are already committed
+```bash
+git update-index --assume-unchanged static/weather.ppm
+git update-index --assume-unchanged static/weather_low_power.ppm
+```
 
 ### Docker compose
 
