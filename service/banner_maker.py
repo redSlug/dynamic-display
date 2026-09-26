@@ -20,7 +20,7 @@ PERSISTENT_DIR = "persistent/"
 class BannerMaker:
     def __init__(self, banner_id, low_power=False):
         self.banner_id = banner_id
-        self.low_power = low_power
+        self.is_lower_power = low_power
 
     def replace_banner(
         self, weather: WeatherData, calendar: str = " ", message: str = " "
@@ -39,11 +39,11 @@ class BannerMaker:
             f"summary: {summary}, font size: {font_size} calendar:"
             f" {calendar}, message: {message}"
         )
-        contrast_factor = 1.1 if self.low_power else 1.99
+        contrast_factor = 1.1 if self.is_lower_power else 1.99
         summary_img = Image.new("RGB", font_size)
         draw = ImageDraw.Draw(summary_img)
-        if self.low_power:
-            main_fill_color = "#808080" if weather.is_daytime else "#800000"
+        if self.is_lower_power:
+            main_fill_color = "#318000" if weather.is_daytime else "#800000"
         else:
             main_fill_color = "#ffffff" if weather.is_daytime else "#ff0000"
 
@@ -55,7 +55,7 @@ class BannerMaker:
 
         current_img = Image.open(f"{IMAGES_DIR}{weather_files[currently_icon]}")
 
-        message_fill_color = "#4b8b00" if self.low_power else "GreenYellow"
+        message_fill_color = "#4b8b00" if self.is_lower_power else "GreenYellow"
         if message:
             bbox = font.getbbox(message)
             font_size = (bbox[2], bbox[3])
@@ -69,7 +69,7 @@ class BannerMaker:
         else:
             message_width = 0
 
-        calendar_fill_color = "#008080" if self.low_power else "cyan"
+        calendar_fill_color = "#008080" if self.is_lower_power else "cyan"
         bbox = font.getbbox(calendar)
         font_size = (bbox[2], bbox[3])
         calendar_img = Image.new("RGB", font_size)
@@ -94,7 +94,7 @@ class BannerMaker:
         if weather.is_daytime:
             banner.paste(current_img, (enhanced_summary.width, 0))
 
-            if not self.low_power:
+            if not self.is_lower_power:
                 colors = ["red", "orange", "yellow", "green", "blue", "purple"]
                 for i, color in enumerate(colors):
                     stripe = Image.new("RGB", (enhanced_summary.width, 1), color)
