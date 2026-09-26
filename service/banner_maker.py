@@ -18,8 +18,9 @@ PERSISTENT_DIR = "persistent/"
 
 
 class BannerMaker:
-    def __init__(self, banner_id):
+    def __init__(self, banner_id, low_power=False):
         self.banner_id = banner_id
+        self.is_lower_power = low_power
 
     def replace_banner(
         self, weather: WeatherData, calendar: str = " ", message: str = " "
@@ -38,38 +39,44 @@ class BannerMaker:
             f"summary: {summary}, font size: {font_size} calendar:"
             f" {calendar}, message: {message}"
         )
+        contrast_factor = 1.1 if self.is_lower_power else 1.99
         summary_img = Image.new("RGB", font_size)
         draw = ImageDraw.Draw(summary_img)
-        main_fill_color = "#ffffff" if weather.is_daytime else "#ff0000"
+        if self.is_lower_power:
+            main_fill_color = "#318000" if weather.is_daytime else "#800000"
+        else:
+            main_fill_color = "#ffffff" if weather.is_daytime else "#ff0000"
 
         draw.text((0, 0), summary, font=font, fill=main_fill_color)
         enh = ImageEnhance.Contrast(summary_img)
-        enh.enhance(1.99).save(GENERATED_DIR + "enh.ppm")
+        enh.enhance(contrast_factor).save(GENERATED_DIR + "enh.ppm")
 
         enhanced_summary = Image.open(GENERATED_DIR + "enh.ppm")
 
         current_img = Image.open(f"{IMAGES_DIR}{weather_files[currently_icon]}")
 
+        message_fill_color = "#4b8b00" if self.is_lower_power else "GreenYellow"
         if message:
             bbox = font.getbbox(message)
             font_size = (bbox[2], bbox[3])
             message_img = Image.new("RGB", font_size)
             message_draw = ImageDraw.Draw(message_img)
-            message_draw.text((0, 0), message, font=font, fill="GreenYellow")
+            message_draw.text((0, 0), message, font=font, fill=message_fill_color)
             enh_message = ImageEnhance.Contrast(message_img)
-            enh_message.enhance(1.99).save(GENERATED_DIR + "messagetext.ppm")
+            enh_message.enhance(contrast_factor).save(GENERATED_DIR + "messagetext.ppm")
             enhanced_message = Image.open(GENERATED_DIR + "messagetext.ppm")
             message_width = enhanced_message.width
         else:
             message_width = 0
 
+        calendar_fill_color = "#008080" if self.is_lower_power else "cyan"
         bbox = font.getbbox(calendar)
         font_size = (bbox[2], bbox[3])
         calendar_img = Image.new("RGB", font_size)
         calendar_draw = ImageDraw.Draw(calendar_img)
-        calendar_draw.text((0, 0), calendar, font=font, fill="cyan")
+        calendar_draw.text((0, 0), calendar, font=font, fill=calendar_fill_color)
         enh_calendar = ImageEnhance.Contrast(calendar_img)
-        enh_calendar.enhance(1.99).save(GENERATED_DIR + "calendartext.ppm")
+        enh_calendar.enhance(contrast_factor).save(GENERATED_DIR + "calendartext.ppm")
 
         enhanced_calendar = Image.open(GENERATED_DIR + "calendartext.ppm")
 
@@ -85,14 +92,13 @@ class BannerMaker:
         banner.paste(enhanced_summary, (0, 4))
 
         if weather.is_daytime:
-            # show weather icon when it's daytime
             banner.paste(current_img, (enhanced_summary.width, 0))
 
-            # NOTE: Shows rainbow when it's daytime
-            colors = ["red", "orange", "yellow", "green", "blue", "purple"]
-            for i, color in enumerate(colors):
-                stripe = Image.new("RGB", (enhanced_summary.width, 1), color)
-                banner.paste(stripe, (0, i if i < 3 else i + 10))
+            if not self.is_lower_power:
+                colors = ["red", "orange", "yellow", "green", "blue", "purple"]
+                for i, color in enumerate(colors):
+                    stripe = Image.new("RGB", (enhanced_summary.width, 1), color)
+                    banner.paste(stripe, (0, i if i < 3 else i + 10))
 
         banner.paste(enhanced_calendar, (enhanced_summary.width + current_img.width, 4))
 

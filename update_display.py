@@ -41,3 +41,6 @@ if __name__ == "__main__":
 
     rc_banner = BannerMaker(banner_id="")
     rc_banner.replace_banner(weather=weather, calendar=calendar, message=message)
+
+    low_power_banner = BannerMaker(banner_id="_low_power", low_power=True)
+    low_power_banner.replace_banner(weather=weather, calendar=calendar, message=message)
