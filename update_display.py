@@ -54,7 +54,10 @@ if __name__ == "__main__":
     special_logger(f"message={message}")
 
     rc_banner = BannerMaker(banner_id="")
-    rc_banner.replace_banner(weather=weather, calendar=calendar, message=message)
+    if is_top_of_hour():
+        rc_banner.replace_banner(weather=weather, calendar=calendar, message=message)
+    else:
+        rc_banner.replace_banner(weather=weather, calendar=calendar)
 
     low_power_banner = BannerMaker(banner_id="_low_power", low_power=True)
     if is_top_of_hour():
