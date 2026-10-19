@@ -47,6 +47,16 @@ sudo service nginx restart
 Check the published version genreated during the docker build
 http://0.0.0.0:5002/persistent/version.txt
 
+## Weather grids
+
+`update_display.py` pulls weather from two different NWS gridpoint cells
+([api.weather.gov](https://api.weather.gov), 2.5km grid cells):
+
+- `https://api.weather.gov/gridpoints/OKX/34,41` — Recurse Center banner (`rc_banner`)
+- `https://api.weather.gov/gridpoints/OKX/35,40` — low power banner (`low_power_banner`), covers Grand Army Plaza / Prospect Park
+
+View both grid cells on a map: https://geojson.io/?map=12.56%2F40.6769%2F-73.9768
+
 ## Server setup (production)
 
 ### Docker restart policy
