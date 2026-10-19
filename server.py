@@ -51,6 +51,15 @@ def persistent_jpg():
     )
 
 
+@app.route("/persistent/display_low_power.jpg")
+def persistent_low_power_jpg():
+    return send_from_directory(
+        os.path.join(app.root_path, "persistent"),
+        "display_low_power.jpg",
+        mimetype="image/jpeg",
+    )
+
+
 @app.route("/persistent/version.txt")
 def version_txt():
     return send_from_directory(

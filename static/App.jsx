@@ -70,6 +70,11 @@ function App() {
                     style={{ width: '100%' }}
                     alt="Display"
                 />
+                <img
+                    src={window.APP_CONFIG.persistentLowPowerJpgUrl}
+                    style={{ width: '100%' }}
+                    alt="Low Power Display"
+                />
             </div>
 
             <div style={{ borderBottom: 'solid' }}></div>
