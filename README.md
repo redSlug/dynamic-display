@@ -4,6 +4,11 @@
 
 <img width="506" alt="image" src="https://github.com/redSlug/dynamic-display/assets/11279144/dfbaf783-fda9-4a8b-98dc-b783ef5c081a">
 
+The Dynamic Display is on the local Hub network. To access while in network reach out to [Bradley](https://github.com/redSlug/), then:
+```bash
+ssh pi@weatherpi.local
+```
+
 
 ## Local development
 Ignore these files that are already committed
